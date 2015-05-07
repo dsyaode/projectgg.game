@@ -702,6 +702,7 @@
      <Compile Include="Assets\Script\item\speItem_property.cs" />
      <Compile Include="Assets\Script\item\treasure_property.cs" />
      <Compile Include="Assets\Script\item\weaponItem_property.cs" />
+     <Compile Include="Assets\Script\logic\bullet\DropBulletLogic.cs" />
      <Compile Include="Assets\Script\logic\bullet\bulletlogic.cs" />
      <Compile Include="Assets\Script\logic\bullet\shootlogic.cs" />
      <Compile Include="Assets\Script\logic\char\charlogic.cs" />

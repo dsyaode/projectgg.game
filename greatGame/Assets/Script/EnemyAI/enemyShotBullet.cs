@@ -102,7 +102,7 @@ public class enemyShotBullet : MonoBehaviour {
 
 		}
 
-                public void shootBullet(float dir) {
+                public GameObject shootBullet(float dir) {
                         GameObject bulletClone;
                         Vector3 shotBulletPos = this.transform.position + shotPos;
                         bulletClone = (GameObject)Instantiate(Resources.Load(bulletPath), shotBulletPos, Quaternion.identity);
@@ -115,6 +115,8 @@ public class enemyShotBullet : MonoBehaviour {
                         shotScript = bulletClone.GetComponent<bulletGetSpeed>();
                         Vector3 speedDir = new Vector3(Mathf.Cos(dir), Mathf.Sin(dir), 0);
                         shotScript.shotBullet(speedDir.normalized * mbulletSpeed);
+
+                        return bulletClone;
                 }
 
 		public void shootMultiBullets(EnemyShotType shotType , int bulletAmount , int angle){

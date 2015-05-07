@@ -153,6 +153,10 @@ public class maplogic{
 														pro.mDoorInfo = info;
 														//Debug.Log ("info:" + info);
 														//Debug.Log ("pro.mDoorInfo:" + pro.mDoorInfo.mX);
+
+                                                                                                                GameObject spr = obj.transform.parent.transform.Find("Sprite0").gameObject;
+                                                                                                                spr.SetActive(true);	
+
 														if(info.mNextRoomId != 0){
 																GameObject wall = obj.transform.parent.transform.Find("wall").gameObject;
 																wall.SetActive(false);
@@ -578,6 +582,17 @@ public class maplogic{
                 Light light = constant.getLight();
                 light.type = LightType.Directional;
                 light.intensity = 0.35f;
+        }
+
+        public void pushChar(GameObject obj) {
+                GameObject player = constant.getPlayer();
+
+                Vector3 v = player.transform.position - obj.transform.position;
+                float force = 2000f;
+
+                maplogic logic = constant.getMapLogic();
+
+                player.transform.rigidbody.AddForce(v.normalized * force);
         }
 }
 

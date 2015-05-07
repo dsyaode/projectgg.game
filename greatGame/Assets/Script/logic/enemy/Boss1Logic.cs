@@ -686,13 +686,8 @@ public class Boss1Logic : enemylogic {
         }
 
         private void pushPlayer() {
-                //Debug.Log("pushPlayer");
-                GameObject player = constant.getPlayer();
-
-                Vector3 v = player.transform.position - this.gameObject.transform.position;
-                float force = 2000f;
-
-                player.transform.rigidbody.AddForce(v.normalized * force);
+                maplogic logic = constant.getMapLogic();
+                logic.pushChar(this.gameObject);
         }
 
         private void startFall() {

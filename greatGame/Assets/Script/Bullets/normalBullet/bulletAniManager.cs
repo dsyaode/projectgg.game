@@ -20,7 +20,9 @@ public class bulletAniManager : MonoBehaviour {
 		public bool dynamicShadow;
 		tk2dSprite shadowSprite;
 
-
+                public bool noChangeDir;
+                public float scaleY;
+                public float scaleX;
 
 		void Awake(){
 				if (bulletDie == false) {
@@ -36,7 +38,9 @@ public class bulletAniManager : MonoBehaviour {
 
 		}
 		void Start () {
-				setBulletDirection ();
+                        if (!noChangeDir) {
+                                setBulletDirection();
+                        }
 		}
 
 		// Update is called once per frame
@@ -53,7 +57,15 @@ public class bulletAniManager : MonoBehaviour {
 				bulletSprite.transform.Rotate (angle);
 				if (getShadow) {
 						shadowSprite.scale = new Vector3 (bulletSprite.scale.x * 0.9f, bulletSprite.scale.y * 0.7f, bulletSprite.scale.z);
-						shadowSprite.GetComponent<shadowAniManager> ().shadowRotate (angle);
+
+                                                if (scaleY != 0) {
+                                                        shadowSprite.scale = new Vector3(shadowSprite.scale.x, bulletSprite.scale.y * scaleY, bulletSprite.scale.z);
+                                                }
+                                                if (scaleX != 0) {
+                                                        shadowSprite.scale = new Vector3(bulletSprite.scale.x * scaleX, shadowSprite.scale.y, bulletSprite.scale.z);
+                                                }
+
+                                                shadowSprite.GetComponent<shadowAniManager> ().shadowRotate (angle);
 
 				}
 				if (bulletDie == false) {
@@ -97,6 +109,13 @@ public class bulletAniManager : MonoBehaviour {
 				GameObject shadow = constant.getMapLogic ().initBulletShadow (bulletSprite , bulletSprite.transform.parent.gameObject , dynamicShadow);
 				shadow.transform.localPosition = new Vector3 (0, -0.55f, 1);
 				tk2dSprite shadowSprite = shadow.GetComponent<tk2dSprite> ();
+
+                                if (scaleY != 0) {
+                                        shadowSprite.scale = new Vector3(shadowSprite.scale.x, bulletSprite.scale.y * scaleY, bulletSprite.scale.z);
+                                }
+                                if (scaleX != 0) {
+                                        shadowSprite.scale = new Vector3(bulletSprite.scale.x * scaleX, shadowSprite.scale.y, bulletSprite.scale.z);
+                                }
 				return shadowSprite;
 		}
 
@@ -182,6 +201,10 @@ public class bulletAniManager : MonoBehaviour {
 								hitWall();
 								return ;
 						}
+                                                if (other.gameObject.tag == constant.TAG_NORMALDOORS) {
+                                                        hitWall();
+                                                        return;
+                                                }
 
 						if (bulletProperty.BattleType == constant.BattleType.Player) {
 								
